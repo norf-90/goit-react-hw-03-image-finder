@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Header,
@@ -12,18 +11,18 @@ import { ImSearch } from 'react-icons/im';
 
 class Searchbar extends Component {
   state = {
-    serchName: '',
+    searchName: '',
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-    // this.setState({ serchName: event.target.value });
-    this.props.onSubmit(this.state.serchName);
-    this.setState({ serchName: '' });
+    const { searchName } = this.state;
+    this.props.onSubmit(searchName);
+    this.setState({ searchName: '' });
   };
 
   handleChange = evt => {
-    this.setState({ serchName: evt.target.value });
+    this.setState({ searchName: evt.target.value });
   };
 
   render() {
@@ -37,7 +36,7 @@ class Searchbar extends Component {
 
             <Input
               type="text"
-              value={this.state.serchName}
+              value={this.state.searchName}
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"

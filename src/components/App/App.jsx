@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
 import { GlobalStyles } from 'components/GlobalStyles';
-// import { Searchbar, Loader, Modal, ImageGallery } from '.';
 import Searchbar from 'components/Searchbar/Searchbar';
+import ImageGallery from 'components/ImageGallery/ImageGallery';
+
+const initialGalleryState = {
+  images: null,
+  totalHits: 0,
+  status: 'idle',
+  page: 1,
+};
 
 class App extends Component {
   state = {
-    serchName: '',
-    page: 1,
-    status: 'idle',
+    searchName: '',
   };
 
-  handleSubmit = serchName => {
-    this.setState({ serchName, page: 1 });
-  };
+  static galleryState = { images: null, totalHits: 0, status: 'idle', page: 1 };
 
-  componentDidMount() {}
-  componentDidUpdate() {}
-  componentWillUnmount() {}
+  changeStatus(status) {
+    this.setState({ status });
+  }
+
+  handleSubmit = searchName => {
+    this.setState({ searchName, page: 1 });
+  };
 
   render() {
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
-        {/* <Loader /> */}
-        {/* <Modal /> */}
-        {/* <ImageGallery /> */}
+        <ImageGallery
+          searchName={this.state.searchName}
+          initialState={initialGalleryState}
+        />
         <GlobalStyles />
       </>
     );

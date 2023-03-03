@@ -61,7 +61,7 @@ export const SubmitButton = styled.button`
 
   font-family: inherit;
   letter-spacing: 7px;
-  color: #303030;
+  color: #00aaff;
   transform: translateY(-50%);
   border: none;
   border-radius: 50%;
