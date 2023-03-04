@@ -3,13 +3,6 @@ import { GlobalStyles } from 'components/GlobalStyles';
 import Searchbar from 'components/Searchbar/Searchbar';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 
-const initialGalleryState = {
-  images: null,
-  totalHits: 0,
-  status: 'idle',
-  page: 1,
-};
-
 class App extends Component {
   state = {
     searchName: '',
@@ -29,10 +22,7 @@ class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery
-          searchName={this.state.searchName}
-          initialState={initialGalleryState}
-        />
+        <ImageGallery searchName={this.state.searchName} />
         <GlobalStyles />
       </>
     );

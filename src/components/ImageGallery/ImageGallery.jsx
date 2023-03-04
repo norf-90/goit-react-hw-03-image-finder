@@ -4,16 +4,18 @@ import LoadMoreButton from 'components/LoadMoreButton/LoadMoreButton';
 import Loader from 'components/Loader/Loader';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { List } from './ImageGallery.styled';
+import { fetchImages } from 'components/services/fetchImages';
+import PropTypes from 'prop-types';
 
-const API_KEY = '32728432-4d3846f56f533eef252fc55ae';
+const initialState = {
+  images: null,
+  totalHits: 0,
+  status: 'idle',
+  page: 1,
+};
 
 class ImageGallery extends Component {
-  state = { ...this.props.initialState };
-
-  fetchImages = (value, page) => {
-    const baseUrl = `https://pixabay.com/api/?q=${value}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
-    return fetch(baseUrl);
-  };
+  state = { ...initialState };
 
   increasePage = () => {
     this.setState(prevState => ({
@@ -21,8 +23,8 @@ class ImageGallery extends Component {
     }));
   };
 
-  async componentDidUpdate(prevProps, prevState) {
-    const { searchName, initialState } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    const { searchName } = this.props;
     const { page } = this.state;
 
     if (prevProps.searchName !== searchName) {
@@ -31,12 +33,11 @@ class ImageGallery extends Component {
 
     if (prevState.page !== page || prevProps.searchName !== searchName) {
       this.setState({ status: 'pending' });
-      this.fetchImages(searchName, page)
+      fetchImages(searchName, page)
         .then(response => {
           if (!response.ok) {
             throw new Error(response.status);
           }
-          console.log(response);
           return response.json();
         })
         .then(data => {
@@ -69,12 +70,13 @@ class ImageGallery extends Component {
     if (status === 'resolved')
       return (
         <>
-          <List className="gallery">
+          <List>
             <ImageGalleryItem
               renderData={images}
               title={`${searchName} picture`}
             />
           </List>
+
           {images.length > 0 && totalHits - page * 12 > 0 && (
             <LoadMoreButton onClick={this.increasePage} />
           )}
@@ -84,5 +86,9 @@ class ImageGallery extends Component {
     if (status === 'rejected') return <ErrorMessage />;
   }
 }
+
+ImageGallery.propTypes = {
+  searchName: PropTypes.string.isRequired,
+};
 
 export default ImageGallery;

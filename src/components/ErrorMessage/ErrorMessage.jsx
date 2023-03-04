@@ -1,19 +1,14 @@
 import React from 'react';
-
+import { Text, Wrapper } from './ErrorMessage.styled';
 const ErrorMessage = () => {
   return (
-    <div
-      style={{
-        textAlign: 'center',
-        margin: '50px 0',
-      }}
-    >
+    <Wrapper>
       <img
         src="https://i.kym-cdn.com/photos/images/newsfeed/001/042/619/4ea.jpg"
         alt="travolta"
       />
-      <p>Nothing found...</p>
-    </div>
+      <Text>Nothing found...</Text>
+    </Wrapper>
   );
 };
 
