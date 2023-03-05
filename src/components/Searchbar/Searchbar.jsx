@@ -16,7 +16,9 @@ class Searchbar extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
+
     const { searchName } = this.state;
+    if (searchName.trim() === '') return;
     this.props.onSubmit(searchName);
     this.setState({ searchName: '' });
   };
@@ -36,11 +38,13 @@ class Searchbar extends Component {
 
             <Input
               type="text"
+              name="value"
               value={this.state.searchName}
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
               onChange={this.handleChange}
+              required
             />
           </Container>
         </Form>
