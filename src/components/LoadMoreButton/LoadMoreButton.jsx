@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 const LoadMoreButton = ({ onClick }) => {
   const handleClick = () => {
     onClick();
-    console.log('aksfjklajdjklsadjfklsad');
   };
   return (
     <Button type="button" onClick={handleClick}>

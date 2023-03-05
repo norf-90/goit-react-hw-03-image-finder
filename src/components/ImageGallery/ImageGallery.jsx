@@ -71,10 +71,17 @@ class ImageGallery extends Component {
       return (
         <>
           <List>
-            <ImageGalleryItem
-              renderData={images}
-              title={`${searchName} picture`}
-            />
+            {images.map(image => {
+              const { id, webformatURL, largeImageURL } = image;
+              const renderData = { id, webformatURL, largeImageURL };
+              return (
+                <ImageGalleryItem
+                  key={id}
+                  renderData={renderData}
+                  title={`${searchName} picture`}
+                />
+              );
+            })}
           </List>
 
           {images.length > 0 && totalHits - page * 12 > 0 && (
